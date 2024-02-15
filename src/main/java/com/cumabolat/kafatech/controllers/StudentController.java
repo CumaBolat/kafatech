@@ -1,11 +1,15 @@
 package com.cumabolat.kafatech.controllers;
 
 import com.cumabolat.kafatech.service.StudentService;
+
+import jakarta.websocket.server.PathParam;
+
 import com.cumabolat.kafatech.models.Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,7 +32,7 @@ public class StudentController {
   }
 
   @GetMapping("/students/{id}")
-  public Student getStudentById(@RequestParam Long id) {
+  public Student getStudentById(@PathVariable Long id) {
     return studentService.getStudentById(id);
   }
 
@@ -38,12 +42,12 @@ public class StudentController {
   }
 
   @DeleteMapping("/students/{id}")
-  public void deleteStudent(@RequestParam Long id) {
+  public void deleteStudent(@PathVariable Long id) {
     studentService.deleteStudent(id);
   }
 
   @PutMapping("/students/{id}")
-  public void updateGrade(@RequestParam Long id, @RequestParam int grade) {
-    studentService.updateGrade(id, grade);
+  public void updateStudent(@RequestBody Student student) {
+    studentService.updateStudent(student);
   }
 }

@@ -22,7 +22,7 @@ public class StudentService {
    * Just incase...
    */
   public Student getStudentById(Long id) {
-    return studentRepository.getReferenceById(id);
+    return studentRepository.getOne(id);
   }
 
   public void addStudent(Student student) {
@@ -33,9 +33,11 @@ public class StudentService {
     studentRepository.deleteById(id);
   }
 
-  public void updateGrade(Long id, int grade) {
-    Student student = studentRepository.getReferenceById(id);
-    student.setGrade(grade);
-    studentRepository.save(student);
+  public void updateStudent(Student student) {
+    if (studentRepository.existsById(student.getId())) {
+      studentRepository.save(student);
+    } else {
+      throw new IllegalArgumentException("Student with id " + student.getId() + " does not exist");
+    }
   }
 }
